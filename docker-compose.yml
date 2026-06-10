@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: edushop_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: ecommerce_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - edushop_network
+
+  backend:
+    build:
+      context: ./backend/EcommerceAPI
+      dockerfile: Dockerfile
+    container_name: edushop_backend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=ecommerce_db;Username=postgres;Password=postgres123
+      - JwtSettings__Secret=YourSuperSecretKeyForJWTTokenGenerationThatIsAtLeast32Characters!
+      - JwtSettings__Issuer=EcommerceAPI
+      - JwtSettings__Audience=EcommerceClient
+      - JwtSettings__ExpiryMinutes=60
+      - JwtSettings__RefreshTokenExpiryDays=7
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - edushop_network
+
+  frontend:
+    build:
+      context: ./frontend/ecommerce-app
+      dockerfile: Dockerfile
+    container_name: edushop_frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - edushop_network
+
+networks:
+  edushop_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
