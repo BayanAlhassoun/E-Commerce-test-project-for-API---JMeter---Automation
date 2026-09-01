@@ -31,7 +31,7 @@ import { Product, Review } from '../../models/product.model';
           <div class="col-md-5">
             <img [src]="p.imageUrl" class="img-fluid rounded" [alt]="p.name"
               style="max-height:450px; object-fit:cover; width:100%"
-              onerror="this.src='https://picsum.photos/400/300'">
+              onerror="this.src='/assets/images/placeholder.jpg'">
           </div>
 
           <!-- Product Info -->
