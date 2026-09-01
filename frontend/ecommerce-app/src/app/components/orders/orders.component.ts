@@ -36,7 +36,7 @@ import { Order } from '../../models/order.model';
                 <div class="col-md-8">
                   <div class="d-flex align-items-center mb-2" *ngFor="let item of order.items">
                     <img [src]="item.productImage" style="width:50px;height:50px;object-fit:cover"
-                      class="rounded me-2" onerror="this.src='https://picsum.photos/50/50'">
+                      class="rounded me-2" onerror="this.src='/assets/images/placeholder.jpg'">
                     <div>
                       <div>{{ item.productName }}</div>
                       <small class="text-muted">Qty: {{ item.quantity }} × {{ '$' + item.unitPrice.toFixed(2) }}</small>
