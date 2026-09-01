@@ -31,7 +31,7 @@ import { Wishlist, WishlistItem } from '../../models/order.model';
               <div class="card product-card h-100">
                 <div class="img-wrapper">
                   <img [src]="item.productImage" [alt]="item.productName"
-                    onerror="this.src='https://picsum.photos/400/300'">
+                    onerror="this.src='/assets/images/placeholder.jpg'">
                 </div>
                 <div class="card-body">
                   <h6 class="card-title">{{ item.productName }}</h6>
