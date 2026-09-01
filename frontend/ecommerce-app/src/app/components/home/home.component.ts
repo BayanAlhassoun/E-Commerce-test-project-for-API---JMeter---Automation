@@ -83,7 +83,7 @@ import { Product, Category, PagedResult } from '../../models/product.model';
               <div class="card product-card h-100">
                 <div class="img-wrapper">
                   <img [src]="product.imageUrl" [alt]="product.name"
-                    onerror="this.src='https://picsum.photos/400/300'">
+                    onerror="this.src='/assets/images/placeholder.jpg'">
                   <span *ngIf="product.discountPercentage > 0"
                     class="badge-discount position-absolute top-0 end-0 m-2">
                     -{{ product.discountPercentage }}%
