@@ -28,7 +28,7 @@ namespace EcommerceAPI.Services
                 .SumAsync(o => o.TotalAmount);
 
             var now = DateTime.UtcNow;
-            var monthStart = new DateTime(now.Year, now.Month, 1);
+            var monthStart = new DateTime(now.Year, now.Month, 1, 0, 0, 0, DateTimeKind.Utc);
             var monthlyRevenue = await _context.Orders
                 .Where(o => o.CreatedAt >= monthStart && o.Status != "Cancelled")
                 .SumAsync(o => o.TotalAmount);
@@ -83,7 +83,7 @@ namespace EcommerceAPI.Services
         public async Task<RevenueSummaryDto> GetRevenueSummaryAsync()
         {
             var now = DateTime.UtcNow;
-            var monthStart = new DateTime(now.Year, now.Month, 1);
+            var monthStart = new DateTime(now.Year, now.Month, 1, 0, 0, 0, DateTimeKind.Utc);
             var weekStart = now.AddDays(-7);
 
             var totalRevenue = await _context.Orders
