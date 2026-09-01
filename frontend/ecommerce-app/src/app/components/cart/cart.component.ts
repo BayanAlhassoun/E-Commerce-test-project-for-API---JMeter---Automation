@@ -32,7 +32,7 @@ import { Cart } from '../../models/cart.model';
                     *ngFor="let item of cart()!.items">
                     <img [src]="item.productImage" [alt]="item.productName"
                       style="width:80px;height:80px;object-fit:cover" class="rounded me-3"
-                      onerror="this.src='https://picsum.photos/80/80'">
+                      onerror="this.src='/assets/images/placeholder.jpg'">
                     <div class="flex-grow-1">
                       <h6 class="mb-0">{{ item.productName }}</h6>
                       <small class="text-muted">{{ '$' + item.unitPrice.toFixed(2) }} each</small>
